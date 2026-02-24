@@ -12,9 +12,9 @@ locals {
       /* Default settings for all fleets/workspaces. */
 
       /* Number of delivery hosts per data center */
-      ac_delivery_count = 1
-      do_delivery_count = 1
-      gc_delivery_count = 1
+      ac_delivery_count = 2
+      do_delivery_count = 2
+      gc_delivery_count = 2
 
       /* Delivery host sizes */
       delivery_do_type = "s-1vcpu-2gb"        /* DigitalOcean */
