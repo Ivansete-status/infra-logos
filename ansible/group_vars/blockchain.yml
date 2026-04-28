@@ -36,15 +36,20 @@ logos_node_blockchain_blend_port: 3400
 logos_node_blockchain_api_port: 8080
 
 # Initial peers (Hetzner seed nodes)
-logos_node_blockchain_initial_peers:
-  - '/ip4/65.109.51.37/udp/3000/quic-v1/p2p/12D3KooWL7a8LBbLRYnabptHPFBCmAs49Y7cVMqvzuSdd43tAJk8'
-  - '/ip4/65.109.51.37/udp/3001/quic-v1/p2p/12D3KooWPLeAcachoUm68NXGD7tmNziZkVeMmeBS5NofyukuMRJh'
-  - '/ip4/65.109.51.37/udp/3002/quic-v1/p2p/12D3KooWKFNe4gS5DcCcRUVGdMjZp3fUWu6q6gG5R846Ui1pccHD'
-  - '/ip4/65.109.51.37/udp/3003/quic-v1/p2p/12D3KooWAnriLgXyQnGTYz1zPWPkQL3rthTKYLzuAP7MMnbgsxzR'
-  - '/ip4/65.108.203.235/udp/3000/quic-v1/p2p/12D3KooWNMixUYkNuvXrNwnsmK2ZFRKNm48kF2qqtd9Du7Ls1yQe'
-  - '/ip4/65.108.203.235/udp/3001/quic-v1/p2p/12D3KooWMwekH9M34FQXX6jPX4XYyNDgaCw68g4y7hqW2bv4UU9h'
-  - '/ip4/65.108.203.235/udp/3002/quic-v1/p2p/12D3KooWEyJNQzmnfWcaRzCBv1ebqXMAWJecnBWmzp2AF6gk28PQ'
-  - '/ip4/65.108.203.235/udp/3003/quic-v1/p2p/12D3KooWMrcbQQwT2dpNDiuLUdGESoqR3u2sJ8gAHHo9JPQH7yHb'
+logos_node_blockchain_initial_peers: '{{ logos_node_blockchain_initial_peers_env[stage] }}'
+logos_node_blockchain_initial_peers_env:
+  dev:
+    - '/ip4/65.108.203.235/udp/3000/quic-v1/p2p/12D3KooWNMixUYkNuvXrNwnsmK2ZFRKNm48kF2qqtd9Du7Ls1yQe'
+    - '/ip4/65.108.203.235/udp/3001/quic-v1/p2p/12D3KooWMwekH9M34FQXX6jPX4XYyNDgaCw68g4y7hqW2bv4UU9h'
+    - '/ip4/65.108.203.235/udp/3002/quic-v1/p2p/12D3KooWEyJNQzmnfWcaRzCBv1ebqXMAWJecnBWmzp2AF6gk28PQ'
+    - '/ip4/65.108.203.235/udp/3003/quic-v1/p2p/12D3KooWMrcbQQwT2dpNDiuLUdGESoqR3u2sJ8gAHHo9JPQH7yHb'
+  test:
+    - '/ip4/65.109.51.37/udp/3000/quic-v1/p2p/12D3KooWL7a8LBbLRYnabptHPFBCmAs49Y7cVMqvzuSdd43tAJk8'
+    - '/ip4/65.109.51.37/udp/3001/quic-v1/p2p/12D3KooWPLeAcachoUm68NXGD7tmNziZkVeMmeBS5NofyukuMRJh'
+    - '/ip4/65.109.51.37/udp/3002/quic-v1/p2p/12D3KooWKFNe4gS5DcCcRUVGdMjZp3fUWu6q6gG5R846Ui1pccHD'
+    - '/ip4/65.109.51.37/udp/3003/quic-v1/p2p/12D3KooWAnriLgXyQnGTYz1zPWPkQL3rthTKYLzuAP7MMnbgsxzR'
+
+logos_otel_rpc_receiver_port: 4319
 
 # Consul
 logos_node_consul_success_before_passing: 5
