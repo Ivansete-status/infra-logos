@@ -53,7 +53,7 @@ logos_otel_rpc_receiver_port: 4319
 
 # Consul
 logos_node_consul_success_before_passing: 5
-logos_node_consul_failures_before_warning: 2
+logos_node_consul_failures_before_warning: 5
 logos_node_consul_failures_before_critical: 20
 
 # Open Ports
