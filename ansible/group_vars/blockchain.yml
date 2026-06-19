@@ -17,7 +17,6 @@ logos_node_module_calls:
 # Blockchain
 logos_node_blockchain_deployment: 'devnet'
 logos_node_blockchain_peer_response_timeout: 30000
-logos_node_public_address: '{{ ansible_default_ipv4.address }}'
 
 # Node identity
 logos_node_blockchain_node_key: '{{ lookup("vault", "blockchain/nodekeys", field=hostname) }}'

@@ -91,7 +91,6 @@ logos_node_storage_bootstrap_nodes:
 
 logos_node_blockchain_deployment: 'testnet'
 logos_node_blockchain_peer_response_timeout: 30000
-logos_node_public_address: '{{ ansible_default_ipv4.address }}'
 
 logos_node_blockchain_node_key: '{{ lookup("vault", "node/blockchain/nodekeys", field=hostname) }}'
 logos_node_blockchain_blend_signing_key: '{{ lookup("vault", "node/blockchain/blend-signing", field=hostname) }}'
