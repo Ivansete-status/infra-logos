@@ -82,6 +82,8 @@ locals {
       node_db_gc_type = "e2-medium"           /* Google Cloud */
 
       node_db_data_vol_size = 100
+
+      lez_node_ips = []
     }
 
     dev = {
@@ -112,6 +114,10 @@ locals {
       gc_blockchain_count = 1
 
       do_chat_kc_count = 1
+
+      lez_node_ips = [
+        "65.108.237.32", # lez-01.he-eu-hel1.logos.dev
+      ]
     }
     test = {
       ac_node_count = 2
