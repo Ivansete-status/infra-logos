@@ -18,19 +18,19 @@
 
 - name: infra-role-certbot
   src: git@github.com:status-im/infra-role-certbot.git
-  version: 324e2241a6e19c6fe90bf2b827103eb3e1ddf23a
+  version: 8b5f4ed137e399a33c10b7ffbeaacb6e0c52fcb1
 
 - name: infra-role-nim-waku
   src: git@github.com:status-im/infra-role-nim-waku.git
-  version: 440d6ea6a0cc9d5a9e04ce2d7491757e00b02db2
+  version: 169a31b61a47bff10436647029955f237be34719
 
 - name: infra-role-postgres-ha
   src: git@github.com:status-im/infra-role-postgres-ha.git
-  version: 06f5042bae5c37dfa74694b69ba2f541ebbc3159
+  version: a9408d3fac887343039c867fad3740bd5b3fcce6
 
 - name: infra-role-logos-node
   src: git@github.com:status-im/infra-role-logos-node.git
-  version: f31342cc3d7dddd05311ae584f4ab9771411fcc3
+  version: 901b7c1a891ba58caedee736136334b9daaae59b
 
 - name: infra-role-wazuh-agent
   src: git@github.com:status-im/infra-role-wazuh-agent.git
