@@ -6,7 +6,7 @@ bootstrap__rsyslog_filter_rules:
   - 'storeMessageDbUrl'
 
 # Container
-logos_node_cont_tag: 'deploy-{{ env }}-{{ stage }}'
+logos_node_cont_tag: 'dev-d0.1.3'
 logos_node_cont_name: 'logos-node'
 logos_node_cont_vol: '/docker/{{ logos_node_cont_name }}'
 logos_node_conf_path: '{{ logos_node_cont_vol }}/conf'
@@ -45,13 +45,13 @@ logos_node_delivery_discv5_udp_port: 9000
 logos_node_delivery_websocket_port: 8000
 
 # Websocket
-logos_node_delivery_websocket_enabled: true
-logos_node_delivery_websocket_secure_enabled: true
+logos_node_delivery_websocket_enabled: false
+logos_node_delivery_websocket_secure_enabled: false
 logos_node_delivery_websocket_domain: '{{ dns_entry }}'
 
 # Store - Postgres
 logos_node_delivery_store_db_url: 'postgres://delivery:{{ lookup("vault", "delivery/database", field="db-password") }}@delivery-db-01.{{ ansible_domain }}.wg:5432/delivery'
-logos_node_delivery_store_retention_policy: 'size:1GB'
+logos_node_delivery_store_retention_policy: 'time:259200;size:50GB'
 
 # Kademlia bootstrap - populate after first deploy
 logos_node_delivery_kad_bootstrap_nodes:
