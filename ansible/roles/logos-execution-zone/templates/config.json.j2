@@ -1,0 +1,5 @@
+{% if lez_config_content is string %}
+{{ lez_config_content | mandatory }}
+{% else %}
+{{ lez_config_content | mandatory | to_nice_json }}
+{% endif %}

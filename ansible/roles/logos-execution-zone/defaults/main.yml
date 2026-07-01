@@ -1,0 +1,62 @@
+---
+lez_service_name: 'logos-exec-zone'
+lez_service_path: '/docker/{{ lez_service_name }}'
+lez_compose_file: '{{ lez_service_path }}/docker-compose.yml'
+lez_service_data: '{{ lez_service_path }}/data'
+lez_service_conf: '{{ lez_service_path }}/conf'
+
+# Containers
+lez_cont_tag: 'v0.2.0'
+lez_cont_uid: 1000
+lez_host_uid: '{{ 100000 + lez_cont_uid | int }}'
+
+# Blockchain
+lez_blockchain_cont_name: '{{ lez_service_name }}-blockchain'
+lez_blockchain_cont_tag: '0.2.0'
+lez_blockchain_cont_image: 'harbor.status.im/logos-blockchain/logos-blockchain:{{ lez_blockchain_cont_tag }}'
+lez_blockchain_cont_api_port: 8080
+lez_blockchain_cont_swarm_port: 3000
+lez_blockchain_config_path: '{{ lez_service_conf }}/blockchain/config.yaml'
+lez_blockchain_keystore_path: '{{ lez_service_conf }}/blockchain/keystore.yaml'
+lez_blockchain_initial_peers: []
+
+# Sequencer
+lez_sequencer_cont_name: '{{ lez_service_name }}-sequencer'
+lez_sequencer_cont_tag: '{{ lez_cont_tag }}'
+lez_sequencer_cont_image: 'harbor.status.im/logos-blockchain/logos-execution-zone/sequencer_service:{{ lez_sequencer_cont_tag }}'
+lez_sequencer_cont_port: 3040
+lez_sequencer_health_path: '/health'
+lez_sequencer_vol: '{{ lez_service_data }}/sequencer'
+lez_sequencer_config_path: '{{ lez_service_conf }}/sequencer/config.json'
+lez_sequencer_config: {}
+
+# Indexer
+lez_indexer_cont_name: '{{ lez_service_name }}-indexer'
+lez_indexer_cont_tag: '{{ lez_cont_tag }}'
+lez_indexer_cont_image: 'harbor.status.im/logos-blockchain/logos-execution-zone/indexer_service:{{ lez_indexer_cont_tag }}'
+lez_indexer_cont_vol: '{{ lez_service_data }}/indexer'
+lez_indexer_cont_port: 8779
+lez_indexer_health_path: '/health'
+lez_indexer_config_path: '{{ lez_service_conf }}/indexer/config.json'
+lez_indexer_config: {}
+
+# Explorer
+lez_explorer_cont_name: '{{ lez_service_name }}-explorer'
+lez_explorer_cont_tag: '{{ lez_cont_tag }}'
+lez_explorer_cont_image: 'harbor.status.im/logos-blockchain/logos-execution-zone/explorer_service:{{ lez_explorer_cont_tag }}'
+lez_explorer_cont_port: 8081
+lez_explorer_health_path: '/'
+
+# Consul
+lez_consul_tags: ['sequencer', 'lez']
+lez_consul_check_disabled: false
+lez_consul_check_interval: '60s'
+lez_consul_check_timeout: '5s'
+lez_consul_success_before_passing: 2
+lez_consul_failures_before_warning: 4
+lez_consul_failures_before_critical: 8
+
+# General container management
+compose_recreate: 'auto'
+compose_state: 'present'
+compose_pull: 'always'

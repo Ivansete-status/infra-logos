@@ -1,0 +1,74 @@
+---
+services:
+  blockchain-init:
+    container_name: '{{ lez_blockchain_cont_name }}-init'
+    image: '{{ lez_blockchain_cont_image }}'
+    restart: 'no'
+    volumes:
+      - '{{ lez_blockchain_config_path | dirname }}:{{ lez_blockchain_config_path | dirname }}:rw'
+    command:
+{% if not lez_blockchain_config_file.stat.exists %}
+      - 'init-config'
+{% else %}
+      - 'update-config'
+      - '--yes'
+{% endif %}
+      - '--log-level=debug'
+      - '-o={{ lez_blockchain_config_path }}'
+      - '--keystore={{ lez_blockchain_keystore_path }}'
+      - '--net-port={{ lez_blockchain_cont_swarm_port }}'
+      - '--http-host=0.0.0.0:{{ lez_blockchain_cont_api_port }}'
+{% for peer in lez_blockchain_initial_peers %}
+      - '--net-initial-peers={{ peer }}'
+{% endfor %}
+
+  blockchain:
+    container_name: '{{ lez_blockchain_cont_name }}'
+    image: '{{ lez_blockchain_cont_image }}'
+    restart: 'always'
+    depends_on:
+      blockchain-init:
+        condition: service_completed_successfully
+    ports:
+      - '{{ lez_blockchain_cont_api_port }}:{{ lez_blockchain_cont_api_port }}/tcp'
+      - '{{ lez_blockchain_cont_swarm_port }}:{{ lez_blockchain_cont_swarm_port }}/tcp'
+    volumes:
+      - '{{ lez_blockchain_config_path | dirname }}:{{ lez_blockchain_config_path | dirname }}:rw'
+    command: ['{{ lez_blockchain_config_path }}']
+
+  indexer:
+    container_name: '{{ lez_indexer_cont_name }}'
+    image: '{{ lez_indexer_cont_image }}'
+    restart: 'always'
+    depends_on:
+      - blockchain
+    ports:
+      - '{{ lez_indexer_cont_port }}:{{ lez_indexer_cont_port }}/tcp'
+    volumes:
+      - '{{ lez_indexer_config_path }}:/etc/indexer_service/indexer_config.json:ro'
+      - '{{ lez_indexer_cont_vol }}:/var/lib/indexer_service'
+
+  sequencer:
+    container_name: '{{ lez_sequencer_cont_name }}'
+    image: '{{ lez_sequencer_cont_image }}'
+    restart: 'always'
+    depends_on:
+      - indexer
+      - blockchain
+    ports:
+      - '{{ lez_sequencer_cont_port }}:{{ lez_sequencer_cont_port }}/tcp'
+    volumes:
+      - '{{ lez_sequencer_config_path }}:/etc/sequencer_service/sequencer_config.json:ro'
+      - '{{ lez_sequencer_vol }}:/var/lib/sequencer_service'
+
+  explorer:
+    container_name: '{{ lez_explorer_cont_name }}'
+    image: '{{ lez_explorer_cont_image }}'
+    restart: 'always'
+    depends_on:
+      - indexer
+    ports:
+      - '{{ lez_explorer_cont_port }}:{{ lez_explorer_cont_port }}/tcp'
+    environment:
+      INDEXER_RPC_URL: 'http://indexer:{{ lez_indexer_cont_port }}'
+      LEPTOS_SITE_ADDR: '0.0.0.0:{{ lez_explorer_cont_port }}'

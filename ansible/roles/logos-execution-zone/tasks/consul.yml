@@ -1,0 +1,34 @@
+---
+- name: Create Consul service definition
+  include_role: name=infra-role-consul-service
+  vars:
+    consul_config_name:                      '{{ lez_service_name }}'
+    consul_default_check_disabled:           '{{ lez_consul_check_disabled }}'
+    consul_default_check_interval:           '{{ lez_consul_check_interval }}'
+    consul_default_check_timeout:            '{{ lez_consul_check_timeout }}'
+    consul_default_success_before_passing:   '{{ lez_consul_success_before_passing }}'
+    consul_default_failures_before_warning:  '{{ lez_consul_failures_before_warning }}'
+    consul_default_failures_before_critical: '{{ lez_consul_failures_before_critical }}'
+    consul_services:
+      - name: '{{ lez_service_name }}'
+        tags: '{{ lez_consul_tags }}'
+        checks:
+          - id:   '{{ lez_blockchain_cont_name }}-health'
+            name: '{{ lez_blockchain_cont_name }}-health'
+            type: 'tcp'
+            tcp:  'localhost:{{ lez_blockchain_cont_api_port }}'
+
+          - id:   '{{ lez_sequencer_cont_name }}-health'
+            name: '{{ lez_sequencer_cont_name }}-health'
+            type: 'tcp'
+            tcp:  'localhost:{{ lez_sequencer_cont_port }}'
+
+          - id:   '{{ lez_indexer_cont_name }}-health'
+            name: '{{ lez_indexer_cont_name }}-health'
+            type: 'tcp'
+            tcp:  'localhost:{{ lez_indexer_cont_port }}'
+
+          - id:   '{{ lez_explorer_cont_name }}-health'
+            name: '{{ lez_explorer_cont_name }}-health'
+            type: 'tcp'
+            tcp:  'localhost:{{ lez_explorer_cont_port }}'
