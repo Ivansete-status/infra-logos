@@ -24,3 +24,5 @@
     - { role: infra-role-open-ports,  tags: open-ports           }
     - { role: infra-role-swap-file,   tags: swap-file            }
     - { role: logos-execution-zone,   tags: logos-execution-zone }
+    - { role: infra-role-certbot,     tags: certbot              }
+    - { role: infra-role-nginx,       tags: nginx                }

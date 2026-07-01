@@ -14,3 +14,11 @@ module "lez" {
 
   ips = local.ws["lez_node_ips"]
 }
+
+resource "cloudflare_record" "lez" {
+  zone_id = lookup(local.zones, "logos.co")
+  name    = "new-testnet.lez"
+  value   = module.lez.public_ips[0]
+  type    = "A"
+  proxied = false
+}

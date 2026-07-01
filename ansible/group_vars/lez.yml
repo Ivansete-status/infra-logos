@@ -1,4 +1,6 @@
 ---
+lez_domain: 'new-testnet.lez.logos.co'
+
 lez_service_name: 'logos-exec-zone'
 lez_explorer_cont_port: 8081
 lez_blockchain_cont_api_port: 8080
@@ -13,7 +15,30 @@ lez_blockchain_initial_peers:
   - '--net-initial-peers=/ip4/65.109.51.37/udp/3003/quic-v1/p2p/12D3KooWAnriLgXyQnGTYz1zPWPkQL3rthTKYLzuAP7MMnbgsxzR'
   - '--net-initial-peers=/ip4/65.109.51.37/udp/50001/quic-v1/p2p/12D3KooWSQc7CcGtvWDPF1yCbBthFnQjprfCVHmfmNDUrSmqQsU1'
 
+# Certbot
+certbot_docker_enabled: true
+certbot_admin_email: 'devops@status.im'
+certbot_services_to_stop: ['nginx']
+certbot_certs:
+  - domains:
+      - '{{ lez_domain }}'
+
+# Nginx
+nginx_sites:
+  chat_kc_https:
+    - listen 443 ssl
+    - server_name {{ lez_domain }}
+
+    - ssl_certificate     /etc/letsencrypt/live/{{ lez_domain }}/fullchain.pem
+    - ssl_certificate_key /etc/letsencrypt/live/{{ lez_domain }}/privkey.pem
+
+    - location / {
+        proxy_pass http://localhost:{{ lez_explorer_cont_port }}/;
+      }
+
 # Firewall
 open_ports_list:
+  nginx:
+    - { port: [80, 443], proto: 'tcp', comment: 'Nginx' }
   logos-blockchain:
     - { port: '{{ lez_blockchain_cont_swarm_port }}', proto: tcp, comment: 'Logos Blockchain Swarm' }
