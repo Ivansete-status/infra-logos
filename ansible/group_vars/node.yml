@@ -165,11 +165,16 @@ open_ports_list:
   certbot:
     - { port: '80', comment: 'Certbot' }
   logos-node:
-    - { port: '{{ logos_node_delivery_p2p_tcp_port }}',                             comment: 'delivery libp2p'    }
-    - { port: '{{ logos_node_delivery_discv5_udp_port }}', protocol: 'udp',         comment: 'delivery discv5'    }
-    - { port: '{{ logos_node_delivery_websocket_port }}',                           comment: 'delivery WSS'       }
-    - { port: '{{ logos_node_storage_tcp_port }}',                                  comment: 'storage libp2p'     }
-    - { port: '{{ logos_node_storage_disc_port }}',        protocol: 'udp',         comment: 'storage discovery'  }
-    - { port: '{{ logos_node_blockchain_swarm_port }}',    protocol: 'udp',         comment: 'blockchain swarm'   }
-    - { port: '{{ logos_node_blockchain_blend_port }}',    protocol: 'udp',         comment: 'blockchain blend'   }
-    - { port: '{{ logos_node_metrics_port }}', ipset: 'hq.metrics', iifname: 'wg0', comment: 'logos node metrics' }
+    - { port: '{{ logos_node_metrics_port }}',             comment: 'logos node metrics',      ipset: 'hq.metrics', iifname: 'wg0' }
+    - { port: '{{ logos_node_delivery_p2p_tcp_port }}',    comment: 'delivery libp2p' }
+    - { port: '{{ logos_node_delivery_discv5_udp_port }}', comment: 'delivery discv5',         protocol: 'udp' }
+    - { port: '{{ logos_node_delivery_websocket_port }}',  comment: 'delivery WSS' }
+    - { port: '{{ logos_node_storage_tcp_port }}',         comment: 'storage libp2p' }
+    - { port: '{{ logos_node_storage_disc_port }}',        comment: 'storage discovery',       protocol: 'udp' }
+    - { port: '{{ logos_node_storage_metrics_port }}',     comment: 'storage metrics',         ipset: 'hq.metrics', iifname: 'wg0' }
+    - { port: '{{ logos_node_blockchain_swarm_port }}',    comment: 'blockchain swarm',        protocol: 'udp' }
+    - { port: '{{ logos_node_blockchain_blend_port }}',    comment: 'blockchain blend',        protocol: 'udp' }
+    - { port: '{{ logos_node_blockchain_api_port }}',      comment: 'blockchain API for BI',   ipset: 'bi.prod', iifname: 'wg0' }
+    - { port: '{{ logos_node_blockchain_api_port }}',      comment: 'blockchain API for BI',   ipset: 'bi.test', iifname: 'wg0' }
+    - { port: '{{ logos_node_storage_api_port }}',         comment: 'blockchain API for BI',   ipset: 'bi.prod', iifname: 'wg0' }
+    - { port: '{{ logos_node_storage_api_port }}',         comment: 'blockchain API for BI',   ipset: 'bi.test', iifname: 'wg0' }
