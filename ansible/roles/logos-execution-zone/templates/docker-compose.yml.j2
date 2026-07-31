@@ -35,7 +35,10 @@ services:
       - '{{ lez_blockchain_cont_swarm_port }}:{{ lez_blockchain_cont_swarm_port }}/tcp'
     volumes:
       - '{{ lez_blockchain_config_path | dirname }}:{{ lez_blockchain_config_path | dirname }}:rw'
-    command: ['{{ lez_blockchain_config_path }}']
+      - '{{ lez_blockchain_deployment_path | dirname }}:{{ lez_blockchain_deployment_path | dirname }}:rw'
+    command: |
+      --deployment='{{ lez_blockchain_deployment_path }}'
+      '{{ lez_blockchain_config_path }}'
 
   indexer:
     container_name: '{{ lez_indexer_cont_name }}'
