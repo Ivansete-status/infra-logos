@@ -1,5 +1,4 @@
 {
-    "home": "/var/lib/indexer_service",
     "consensus_info_polling_interval": "1s",
     "bedrock_config": {
         "addr": "http://blockchain:8080"

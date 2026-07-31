@@ -47,6 +47,8 @@ services:
     volumes:
       - '{{ lez_indexer_config_path }}:/etc/indexer_service/indexer_config.json:ro'
       - '{{ lez_indexer_cont_vol }}:/var/lib/indexer_service'
+    command: |
+      --data_dir=/var/lib/indexer_service
 
   sequencer:
     container_name: '{{ lez_sequencer_cont_name }}'
