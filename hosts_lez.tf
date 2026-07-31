@@ -16,8 +16,10 @@ module "lez" {
 }
 
 resource "cloudflare_record" "lez" {
+  count = length(module.lez.public_ips) > 0 ? 1 : 0
+
   zone_id = lookup(local.zones, "logos.co")
-  name    = "new-testnet.lez"
+  name    = "${terraform.workspace}net.lez"
   value   = module.lez.public_ips[0]
   type    = "A"
   proxied = false
