@@ -48,6 +48,7 @@ lez_explorer_cont_port: 8081
 lez_explorer_health_path: '/'
 
 # Consul
+lez_consul_service_name: 'logos-exec-zone'
 lez_consul_tags: ['sequencer', 'lez']
 lez_consul_check_disabled: false
 lez_consul_check_interval: '60s'
