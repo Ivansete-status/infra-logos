@@ -9,12 +9,13 @@ services:
     command:
 {% if not lez_blockchain_config_file.stat.exists %}
       - 'init-config'
+      - '--output={{ lez_blockchain_config_path }}'
 {% else %}
       - 'update-config'
+      - '--user-config={{ lez_blockchain_config_path }}'
       - '--yes'
 {% endif %}
       - '--log-level=debug'
-      - '-o={{ lez_blockchain_config_path }}'
       - '--keystore={{ lez_blockchain_keystore_path }}'
       - '--net-port={{ lez_blockchain_cont_swarm_port }}'
       - '--http-host=0.0.0.0:{{ lez_blockchain_cont_api_port }}'
