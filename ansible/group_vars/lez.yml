@@ -1,6 +1,6 @@
 ---
 lez_domain: '{{ stage }}net.lez.logos.co'
-lez_service_name: 'logos-exec-zone'
+lez_service_name: 'logos-exec-zone-{{ stage }}net'
 lez_explorer_cont_port: 8081
 lez_blockchain_cont_api_port: 8080
 lez_blockchain_cont_swarm_port: 3000
