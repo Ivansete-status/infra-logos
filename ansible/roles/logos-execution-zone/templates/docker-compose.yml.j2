@@ -51,8 +51,10 @@ services:
     volumes:
       - '{{ lez_indexer_config_path }}:/etc/indexer_service/indexer_config.json:ro'
       - '{{ lez_indexer_cont_vol }}:/var/lib/indexer_service'
-    command: |
-      --data_dir=/var/lib/indexer_service
+    command:
+      - 'indexer_service'
+      - '/etc/indexer_service/indexer_config.json'
+      - '--data-dir=/var/lib/indexer_service'
 
   sequencer:
     container_name: '{{ lez_sequencer_cont_name }}'
@@ -67,7 +69,9 @@ services:
       - '{{ lez_sequencer_config_path }}:/etc/sequencer_service/sequencer_config.json:ro'
       - '{{ lez_sequencer_vol }}:/var/lib/sequencer_service'
     command:
-      --port={{ lez_sequencer_cont_port }}
+      - 'sequencer_service'
+      - '/etc/sequencer_service/sequencer_config.json'
+      - '--port={{ lez_sequencer_cont_port }}'
 
   explorer:
     container_name: '{{ lez_explorer_cont_name }}'
