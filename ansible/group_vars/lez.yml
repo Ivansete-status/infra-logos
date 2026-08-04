@@ -1,7 +1,10 @@
 ---
-lez_domain: '{{ stage }}net.lez.logos.co'
+# Logos Execution Zone
+lez_rpc_domain: '{{ stage }}net.lez.logos.co'
+lez_explorer_domain: 'explorer.{{ stage }}net.lez.logos.co'
 lez_service_name: 'logos-exec-zone-{{ stage }}net'
 lez_explorer_cont_port: 8081
+lez_sequencer_cont_port: 3040
 lez_blockchain_cont_api_port: 8080
 lez_blockchain_cont_swarm_port: 3000
 lez_sequencer_config: '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/sequencer_config.json") | mandatory }}'
@@ -19,16 +22,28 @@ certbot_admin_email: 'devops@status.im'
 certbot_services_to_stop: ['nginx']
 certbot_certs:
   - domains:
-      - '{{ lez_domain }}'
+      - '{{ lez_rpc_domain }}'
+      - '{{ lez_explorer_domain }}'
 
 # Nginx
 nginx_sites:
-  chat_kc_https:
+  lez_rpc_https:
     - listen 443 ssl
-    - server_name {{ lez_domain }}
+    - server_name {{ lez_rpc_domain }}
 
-    - ssl_certificate     /etc/letsencrypt/live/{{ lez_domain }}/fullchain.pem
-    - ssl_certificate_key /etc/letsencrypt/live/{{ lez_domain }}/privkey.pem
+    - ssl_certificate     /etc/letsencrypt/live/{{ lez_rpc_domain }}/fullchain.pem
+    - ssl_certificate_key /etc/letsencrypt/live/{{ lez_rpc_domain }}/privkey.pem
+
+    - location / {
+        proxy_pass http://localhost:{{ lez_sequencer_cont_port }}/;
+      }
+
+  lez_explorer_https:
+    - listen 443 ssl
+    - server_name {{ lez_explorer_domain }}
+
+    - ssl_certificate     /etc/letsencrypt/live/{{ lez_rpc_domain }}/fullchain.pem
+    - ssl_certificate_key /etc/letsencrypt/live/{{ lez_rpc_domain }}/privkey.pem
 
     - location / {
         proxy_pass http://localhost:{{ lez_explorer_cont_port }}/;
@@ -37,6 +52,6 @@ nginx_sites:
 # Firewall
 open_ports_list:
   nginx:
-    - { port: [80, 443], proto: 'tcp', comment: 'Nginx' }
+    - { port: [80, 443], proto: 'tcp', comment: 'Nginx and Certbot' }
   logos-blockchain:
     - { port: '{{ lez_blockchain_cont_swarm_port }}', proto: tcp, comment: 'Logos Blockchain Swarm' }

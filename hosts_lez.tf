@@ -15,7 +15,17 @@ module "lez" {
   ips = local.ws["lez_node_ips"]
 }
 
-resource "cloudflare_record" "lez" {
+resource "cloudflare_record" "lez_explorer" {
+  count = length(module.lez.public_ips) > 0 ? 1 : 0
+
+  zone_id = lookup(local.zones, "logos.co")
+  name    = "explorer.${terraform.workspace}net.lez"
+  value   = module.lez.public_ips[0]
+  type    = "A"
+  proxied = false
+}
+
+resource "cloudflare_record" "lez_rpc" {
   count = length(module.lez.public_ips) > 0 ? 1 : 0
 
   zone_id = lookup(local.zones, "logos.co")
