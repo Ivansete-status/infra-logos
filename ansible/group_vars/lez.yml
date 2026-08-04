@@ -9,12 +9,18 @@ lez_blockchain_cont_api_port: 8080
 lez_blockchain_cont_swarm_port: 3000
 lez_sequencer_config: '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/sequencer_config.json") | mandatory }}'
 lez_indexer_config:   '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/indexer_config.json") | mandatory }}'
-# FIXME: Unknown reason why we can't use logos_node_blockchain_initial_peers_env[stage].
-lez_blockchain_initial_peers:
-  - '/ip4/65.108.203.235/udp/3000/quic-v1/p2p/12D3KooWNbZTQ86TZ9MrZ2wm6iUFFj25AFTzFLUD7i6XkZHoUzU8'
-  - '/ip4/65.108.203.235/udp/3001/quic-v1/p2p/12D3KooWNhXaH4XTX6Pp66NDQZxZpXYQzeruwwraMvTxojz1QXPJ'
-  - '/ip4/65.108.203.235/udp/3002/quic-v1/p2p/12D3KooWNTLPg5uYPKgZCDvzyaWNwZNcwVKmfS2bNv52E9L9P7Hf'
-  - '/ip4/65.108.203.235/udp/50001/quic-v1/p2p/12D3KooWMULUG8RXC2esnfLcVzGHohf6KNPSswkCKa1mdpXz4tHH'
+lez_blockchain_initial_peers: '{{ lez_blockchain_initial_peers_env[stage] }}'
+lez_blockchain_initial_peers_env:
+  dev:
+    - '/ip4/65.108.203.235/udp/3000/quic-v1/p2p/12D3KooWNbZTQ86TZ9MrZ2wm6iUFFj25AFTzFLUD7i6XkZHoUzU8'
+    - '/ip4/65.108.203.235/udp/3001/quic-v1/p2p/12D3KooWNhXaH4XTX6Pp66NDQZxZpXYQzeruwwraMvTxojz1QXPJ'
+    - '/ip4/65.108.203.235/udp/3002/quic-v1/p2p/12D3KooWNTLPg5uYPKgZCDvzyaWNwZNcwVKmfS2bNv52E9L9P7Hf'
+    - '/ip4/65.108.203.235/udp/50001/quic-v1/p2p/12D3KooWMULUG8RXC2esnfLcVzGHohf6KNPSswkCKa1mdpXz4tHH'
+  test:
+    - '/ip4/65.109.51.37/udp/3000/quic-v1/p2p/12D3KooWFrouXfmrR4nsLMtE7wu15DoMJ6VtoUtHinREZCvbWHar'
+    - '/ip4/65.109.51.37/udp/3001/quic-v1/p2p/12D3KooWJRGau8M1rjT7R5e4YYsgdFhsMX35nRDtMwCDjxQkXAHz'
+    - '/ip4/65.109.51.37/udp/3002/quic-v1/p2p/12D3KooWQXJavMDTRscjauFSgVAB1VLB6Rzpy2uY5SU9Tk7927tb'
+    - '/ip4/65.109.51.37/udp/50001/quic-v1/p2p/12D3KooWSQc7CcGtvWDPF1yCbBthFnQjprfCVHmfmNDUrSmqQsU1'
 
 # Certbot
 certbot_docker_enabled: true

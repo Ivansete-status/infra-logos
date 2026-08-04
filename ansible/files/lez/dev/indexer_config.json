@@ -1,7 +1,8 @@
 {
     "consensus_info_polling_interval": "1s",
+    "allow_chain_reset": true,
     "bedrock_config": {
         "addr": "http://blockchain:8080"
     },
-    "channel_id": "8201010101010101010101010101010101010101010101010101010101010101"
+    "channel_id": "8301010101010101010101010101010101010101010101010101010101010101"
 }
