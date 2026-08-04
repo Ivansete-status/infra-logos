@@ -11,6 +11,7 @@
     - '{{ lez_service_conf }}'
     - '{{ lez_sequencer_vol }}'
     - '{{ lez_indexer_cont_vol }}'
+    - '{{ lez_blockchain_state_path }}'
     - '{{ lez_blockchain_config_path | dirname }}'
     - '{{ lez_indexer_config_path | dirname }}'
     - '{{ lez_sequencer_config_path | dirname }}'
