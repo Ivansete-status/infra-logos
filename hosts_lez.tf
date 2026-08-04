@@ -1,7 +1,3 @@
-/* Hetzner AX41-NVMe
- * AMD Ryzen 5 3600
- * 64 GB DDR4
- * 2x 512 GB SSD NVMe */
 module "lez" {
   source = "github.com/status-im/infra-tf-dummy-module"
 

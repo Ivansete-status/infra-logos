@@ -118,7 +118,7 @@ locals {
       do_chat_kc_count = 1
 
       lez_node_ips = [
-        "65.108.237.32", # lez-01.he-eu-hel1.logos.test
+        "65.108.237.32", # lez-01.he-eu-hel1.logos.dev (AX41-NVMe)
       ]
     }
     test = {
@@ -144,7 +144,9 @@ locals {
 
       node_db_data_vol_size = 320
 
-      lez_node_ips = []
+      lez_node_ips = [
+        "65.21.205.58", # lez-01.he-eu-hel1.logos.test (AX42-1)
+      ]
     }
   }
 }
