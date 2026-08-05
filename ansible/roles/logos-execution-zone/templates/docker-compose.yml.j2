@@ -37,9 +37,10 @@ services:
     volumes:
       - '{{ lez_blockchain_state_path }}:{{ lez_blockchain_state_path }}'
       - '{{ lez_blockchain_config_path | dirname }}:{{ lez_blockchain_config_path | dirname }}:rw'
-      - '{{ lez_blockchain_deployment_path | dirname }}:{{ lez_blockchain_deployment_path | dirname }}:rw'
     command: |
+{% if lez_blockchain_deployment_config is defined %}
       --deployment='{{ lez_blockchain_deployment_path }}'
+{% endif %}
       '{{ lez_blockchain_config_path }}'
 
   indexer:

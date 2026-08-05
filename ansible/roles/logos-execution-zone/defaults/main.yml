@@ -19,8 +19,9 @@ lez_blockchain_cont_swarm_port: 3000
 lez_blockchain_state_path: '{{ lez_service_data }}/blockchain/state'
 lez_blockchain_config_path: '{{ lez_service_conf }}/blockchain/config.yaml'
 lez_blockchain_keystore_path: '{{ lez_service_conf }}/blockchain/keystore.yaml'
+#lez_blockchain_keystore_config: ~
 lez_blockchain_deployment_path: '{{ lez_service_conf }}/blockchain/deployment.yaml'
-lez_blockchain_deployment_url: 'https://raw.githubusercontent.com/logos-blockchain/logos-blockchain/refs/tags/0.2.1-rc.3/nodes/node/binary/src/config/deployment/settings.yaml'
+#lez_blockchain_deployment_config: ~
 lez_blockchain_initial_peers: []
 
 # Sequencer

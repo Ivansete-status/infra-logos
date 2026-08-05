@@ -6,7 +6,6 @@
     group: dockremap
     state: directory
     mode: '0775'
-    recurse: true
   with_items:
     - '{{ lez_service_conf }}'
     - '{{ lez_sequencer_vol }}'
@@ -43,10 +42,20 @@
   stat:
     path: '{{ lez_blockchain_config_path }}'
 
-- name: Download blockchain deployment settings
-  get_url:
-    url:  '{{ lez_blockchain_deployment_url }}'
-    dest: '{{ lez_blockchain_deployment_path  }}'
-    owner: '{{ lez_host_uid }}'
-    group: dockremap
-    mode: '0444'
+- name: Create blockchain deployment settings
+  when: lez_blockchain_deployment_config is defined
+  copy:
+    dest:    '{{ lez_blockchain_deployment_path }}'
+    content: '{{ lez_blockchain_deployment_config }}'
+    owner:   '{{ lez_host_uid }}'
+    group:   'dockremap'
+    mode:    '0644'
+
+- name: Create blockchain keystore config
+  when: lez_blockchain_keystore_config is defined
+  copy:
+    dest:    '{{ lez_blockchain_keystore_path }}'
+    content: '{{ lez_blockchain_keystore_config }}'
+    owner:   '{{ lez_host_uid }}'
+    group:   'dockremap'
+    mode:    '0400'

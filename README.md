@@ -11,6 +11,18 @@ Current state of fleets: https://fleets.logos.co/
 - https://canary.infra.status.im/status/logos-dev
 - https://canary.infra.status.im/status/logos-test
 
+# Endpoints
+
+### LEZ Devnet
+
+- RPC: https://devnet.lez.logos.co/
+- Explorer: https://explorer.devnet.lez.logos.co/
+
+### LEZ Testnet
+
+- RPC: https://testnet.lez.logos.co/
+- Explorer: https://explorer.testnet.lez.logos.co/
+
 # Layout
 
 The fleet uses two Terraform workspaces with different layouts:

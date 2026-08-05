@@ -5,12 +5,22 @@ lez_explorer_domain: 'explorer.{{ stage }}net.lez.logos.co'
 lez_service_name: 'logos-exec-zone-{{ stage }}net'
 lez_explorer_cont_port: 8081
 lez_sequencer_cont_port: 3040
+lez_cont_tag: '{{ lez_cont_tag_map[stage] }}'
+lez_cont_tag_map:
+  dev:  'v0.2.2-rc1'
+  test: '0.2.2'
+lez_blockchain_cont_tag: '{{ lez_blockchain_cont_tag_map[stage] }}'
+lez_blockchain_cont_tag_map:
+  dev:  '0.2.1-rc.3'
+  test: 'testnet'
 lez_blockchain_cont_api_port: 8080
 lez_blockchain_cont_swarm_port: 3000
-lez_sequencer_config: '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/sequencer_config.json") | mandatory }}'
-lez_indexer_config:   '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/indexer_config.json") | mandatory }}'
-lez_blockchain_initial_peers: '{{ lez_blockchain_initial_peers_env[stage] }}'
-lez_blockchain_initial_peers_env:
+lez_blockchain_keystore_config: '{{ lookup("vault", "lez/blockchain", field="keystore") }}'
+lez_blockchain_deployment_config: '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/blockchain_deployment.yaml") | mandatory }}'
+lez_sequencer_config:             '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/sequencer_config.json") | mandatory }}'
+lez_indexer_config:               '{{ lookup("ansible.builtin.file", "../files/lez/"+stage+"/indexer_config.json") | mandatory }}'
+lez_blockchain_initial_peers: '{{ lez_blockchain_initial_peers_map[stage] }}'
+lez_blockchain_initial_peers_map:
   dev:
     - '/ip4/65.108.203.235/udp/3000/quic-v1/p2p/12D3KooWNbZTQ86TZ9MrZ2wm6iUFFj25AFTzFLUD7i6XkZHoUzU8'
     - '/ip4/65.108.203.235/udp/3001/quic-v1/p2p/12D3KooWNhXaH4XTX6Pp66NDQZxZpXYQzeruwwraMvTxojz1QXPJ'
