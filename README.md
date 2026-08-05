@@ -2,9 +2,9 @@
 
 This repo defines infrastructure for running [Logos](https://logos.co/) node fleet.
 
-# Dashboard
+# Dashboards
 
-You can look up current state of the fleet at: TODO
+Current state of fleets: https://fleets.logos.co/
 
 ## Canaries
 
