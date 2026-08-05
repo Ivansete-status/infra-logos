@@ -6,9 +6,10 @@ This repo defines infrastructure for running [Logos](https://logos.co/) node fle
 
 You can look up current state of the fleet at: TODO
 
-You can check fleet status via Canary service:
+## Canaries
 
-- TODO
+- https://canary.infra.status.im/status/logos-dev
+- https://canary.infra.status.im/status/logos-test
 
 # Layout
 
