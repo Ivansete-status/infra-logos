@@ -7,6 +7,7 @@ module "lez" {
   stage  = terraform.workspace
   region = "eu-hel1"
   prefix = "he"
+  type   = "AX42-1"
 
   ips = local.ws["lez_node_ips"]
 }
