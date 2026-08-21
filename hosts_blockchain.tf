@@ -22,6 +22,9 @@ module "blockchain" {
   do_data_vol_size = local.ws["blockchain_data_vol_size"]
   gc_data_vol_size = local.ws["blockchain_data_vol_size"]
 
+  /* network */
+  ac_elastic_ip = true
+
   /* firewall */
   open_tcp_ports = [
     "8080", /* blockchain REST API */

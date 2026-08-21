@@ -22,6 +22,9 @@ module "storage" {
   do_data_vol_size = local.ws["storage_data_vol_size"]
   gc_data_vol_size = local.ws["storage_data_vol_size"]
 
+  /* network */
+  ac_elastic_ip = true
+
   /* firewall */
   open_tcp_ports = [
     "80",   /* certbot */
