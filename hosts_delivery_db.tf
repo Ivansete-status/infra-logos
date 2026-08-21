@@ -21,7 +21,4 @@ module "delivery-db" {
   ac_data_vol_size = local.ws["db_data_vol_size"]
   do_data_vol_size = local.ws["db_data_vol_size"]
   gc_data_vol_size = local.ws["db_data_vol_size"]
-
-  /* network */
-  ac_elastic_ip = true
 }
